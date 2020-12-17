@@ -1,9 +1,10 @@
 import "./App.css";
+import GameCenter from './components/GameCenter';
 
 function App() {
   return (
-    <div className="app">
-      <h1>Grüße</h1>
+    <div className="App">
+      <GameCenter />
     </div>
   );
 }
