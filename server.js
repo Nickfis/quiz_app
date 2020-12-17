@@ -1,6 +1,13 @@
-var express = require("express");
+const express = require("express");
+// const connectDB = require("./config/db");
+// const config = require("config");
+const app = express();
+// connect db
+// connectDB();
 
-var app = express();
-var server = app.listen(4000, function() {
-  console.log("listening to request on port 4000");
-});
+app.use(express.json({extended: false}));
+
+app.get("/", (req, res) => res.send("API running"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, console.log(`server started on port ${PORT}`));
