@@ -10,11 +10,11 @@ const GameCenter = () => {
   });
   let [answeredQuestions, setAnsweredQuestions] = useState(0);
 
-  let [buzzerBlocked, setBuzzerBlocked] = useState(false);
+  let [buzzerBlocked, setBuzzerStatus] = useState(false);
   let [whoClicked, setBuzzerClicker] = useState("Marcel");
 
   const handleBuzzerClick = player => {
-    setBuzzerBlocked(true);
+    setBuzzerStatus(true);
     console.log(`${player} has pressed the button bitch!!!`);
     setBuzzerClicker(player);
   };
@@ -27,12 +27,14 @@ const GameCenter = () => {
 
   return (
     <Fragment>
-      <div className="buzzerBlockedScreen">
-        <div className="whoBuzzered">
-          <span className="firstClicker">{whoClicked}</span>
-          hat zuerst gedrückt! Sag die Antwort du Opfer.
+      {buzzerBlocked ? (
+        <div className="buzzerBlockedScreen">
+          <div className="whoBuzzered">
+            <span className="firstClicker">{whoClicked}</span>
+            hat zuerst gedrückt! Sag die Antwort du Opfer.
+          </div>
         </div>
-      </div>
+      ) : null}
       <div className="gameCenter">
         <div className="scoreBoard">
           <div className="playerContainer">
@@ -68,7 +70,7 @@ const GameCenter = () => {
               onChange={e =>
                 setCurrentStakes({
                   ...currentStakes,
-                  secondPlayer: e.target.value
+                  firstPlayer: e.target.value
                 })
               }
               placeholder={0}
@@ -95,6 +97,19 @@ const GameCenter = () => {
               placeholder={0}
             ></input>
           </div>
+        </div>
+      </div>
+      <div className="adminPanel">
+        <div className="firstPlayerPanel">
+          <div className="button"></div>
+          <div className="button"></div>
+        </div>
+        <div className="button" onClick={e => setBuzzerStatus(false)}>
+          Buzzer freischalten
+        </div>
+        <div className="secondPlayerPanel">
+          <div className="button"></div>
+          <div className="button"></div>
         </div>
       </div>
     </Fragment>
