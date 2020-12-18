@@ -1,28 +1,35 @@
-import React, {useState, Fragment} from "react";
+import React, {useState, Fragment, useEffect} from "react";
 import "./GameCenter.css";
 import maxi from "./../resources/maxiBild.jpg";
 import siggi from "./../resources/siggiBild.jpg";
+import io from "socket.io-client";
+// connecting to the socket server
+const socket = io.connect("http://127.0.0.1:4001");
 
-const GameCenter = () => {
+const GameCenter = props => {
+  const player = props.match.params.user;
+  // const [response, setResponse] = useState("");
+  // connecting to the socket server
+  // useEffect(() => {
+  //   const socket = socketIOClient(ENDPOINT);
+  //   socket.on("FromAPI", data => {
+  //     setResponse(data);
+  //   });
+  // }, []);
+
+  // state initialization
   let [currentStakes, setCurrentStakes] = useState({
     firstPlayer: 0,
     secondPlayer: 0
   });
   let [answeredQuestions, setAnsweredQuestions] = useState(0);
-
+  let [whoClicked, setBuzzerClicker] = useState("");
   let [buzzerBlocked, setBuzzerStatus] = useState(false);
-  let [whoClicked, setBuzzerClicker] = useState("Marcel");
 
-  const handleBuzzerClick = player => {
+  const handleBuzzerClick = () => {
     setBuzzerStatus(true);
-    console.log(`${player} has pressed the button bitch!!!`);
-    setBuzzerClicker(player);
-  };
-
-  const handleStakeSubmit = (e, player) => {
-    e.preventDefault();
-    console.log(e);
-    // setCurrentStakes({...currentStakes, player: })
+    setBuzzerClicker(player.split("_").join(" "));
+    socket.emit("buzzerClicked", {player: player.split("_").join(" ")});
   };
 
   return (
@@ -31,7 +38,7 @@ const GameCenter = () => {
         <div className="buzzerBlockedScreen">
           <div className="whoBuzzered">
             <span className="firstClicker">{whoClicked}</span>
-            hat zuerst gedrückt! Sag die Antwort du Opfer.
+            hat zuerst gedrückt!
           </div>
         </div>
       ) : null}

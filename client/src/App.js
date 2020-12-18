@@ -1,12 +1,15 @@
 import "./App.css";
-import GameCenter from './components/GameCenter';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import GameCenter from "./components/GameCenter";
+import LandingPage from "./components/LandingPage";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <GameCenter />
-    </div>
+    <Router>
+      <Route exact path="/" component={LandingPage} />
+      <Route exact path="/quiz/:user" component={GameCenter} />
+    </Router>
   );
-}
+};
 
 export default App;
