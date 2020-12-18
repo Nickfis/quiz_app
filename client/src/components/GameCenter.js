@@ -22,6 +22,10 @@ const GameCenter = props => {
     firstPlayer: 0,
     secondPlayer: 0
   });
+  let [currentPoints, setCurrentPoints] = useState({
+    firstPlayer: 100,
+    secondPlayer: 100
+  });
   let [answeredQuestions, setAnsweredQuestions] = useState(0);
   let [whoClicked, setBuzzerClicker] = useState("");
   let [buzzerBlocked, setBuzzerStatus] = useState(false);
@@ -30,6 +34,22 @@ const GameCenter = props => {
     setBuzzerStatus(true);
     setBuzzerClicker(user.split("_").join(" "));
     socket.emit("buzzerClicked", {player: user.split("_").join(" ")});
+  };
+
+  const handleCorrectAnswer = player => {
+    setCurrentPoints({
+      ...currentPoints,
+      [player]:
+        parseInt(currentPoints[player]) + parseInt(currentStakes[player])
+    });
+  };
+
+  const handleWrongAnswer = player => {
+    setCurrentPoints({
+      ...currentPoints,
+      [player]:
+        parseInt(currentPoints[player]) - parseInt(currentStakes[player])
+    });
   };
 
   return (
@@ -54,9 +74,9 @@ const GameCenter = props => {
           <div className="scoreContainer">
             <h2 className="playerName">Punktestand</h2>
             <div className="pointsContainer">
-              <h2>100</h2>
+              <h2>{currentPoints.firstPlayer}</h2>
               <div className="pointsDivider"></div>
-              <h2>100</h2>
+              <h2>{currentPoints.secondPlayer}</h2>
             </div>
           </div>
           <div className="playerContainer">
@@ -109,15 +129,37 @@ const GameCenter = props => {
       {user === "host" ? (
         <div className="adminPanel">
           <div className="firstPlayerPanel">
-            <div className="button"></div>
-            <div className="button"></div>
+            <div
+              className="button correct"
+              onClick={() => handleCorrectAnswer("firstPlayer")}
+            >
+              RICHTIG
+            </div>
+            <div
+              className="button false"
+              onClick={() => handleWrongAnswer("firstPlayer")}
+            >
+              FALSCH
+            </div>
+            <div className="button notAnswered">KEINE ANTWORT</div>
           </div>
           <div className="button" onClick={e => setBuzzerStatus(false)}>
             Buzzer freischalten
           </div>
           <div className="secondPlayerPanel">
-            <div className="button"></div>
-            <div className="button"></div>
+            <div
+              className="button correct"
+              onClick={() => handleCorrectAnswer("secondPlayer")}
+            >
+              RICHTIG
+            </div>
+            <div
+              className="button false"
+              onClick={() => handleWrongAnswer("secondPlayer")}
+            >
+              FALSCH
+            </div>
+            <div className="button notAnswered">KEINE ANTWORT</div>
           </div>
         </div>
       ) : null}
