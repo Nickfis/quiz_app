@@ -16,7 +16,6 @@ const io = socketIo(server, {
 
 io.on("connection", socket => {
   socket.on("buzzerClicked", ({player}) => {
-    console.log(`Buzzer Clicked by ${player}`);
     io.emit("buzzerClicked", {player});
   });
 
@@ -29,8 +28,10 @@ io.on("connection", socket => {
     io.emit("setStakes", newStakes);
   });
   socket.on("setPoints", newPoints => {
-    console.log(newPoints);
     io.emit("setPoints", newPoints);
+  });
+  socket.on("setAnsweredQuestions", newAnsweredQuestions => {
+    io.emit("setAnsweredQuestions", newAnsweredQuestions);
   });
 });
 

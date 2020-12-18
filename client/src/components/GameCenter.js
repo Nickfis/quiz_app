@@ -24,6 +24,9 @@ const GameCenter = props => {
     socket.on("setPoints", newPoints => {
       setCurrentPoints(newPoints);
     });
+    socket.on("setAnsweredQuestions", newAnsweredQuestions => {
+      setAnsweredQuestions(newAnsweredQuestions);
+    });
   }, []);
 
   // state initialization
@@ -35,7 +38,11 @@ const GameCenter = props => {
     firstPlayer: 100,
     secondPlayer: 100
   });
-  let [answeredQuestions, setAnsweredQuestions] = useState(0);
+  let [answeredQuestions, setAnsweredQuestions] = useState({
+    firstPlayer: 0,
+    secondPlayer: 0
+  });
+
   let [whoClicked, setBuzzerClicker] = useState("");
   let [buzzerBlocked, setBuzzerStatus] = useState(false);
 
@@ -51,8 +58,14 @@ const GameCenter = props => {
       [player]:
         parseInt(currentPoints[player]) + parseInt(currentStakes[player])
     };
+    let newAnsweredQuestions = {
+      ...answeredQuestions,
+      [player]: answeredQuestions[player] + 1
+    };
     setCurrentPoints();
     socket.emit("setPoints", newPoints);
+    setAnsweredQuestions(newAnsweredQuestions);
+    socket.emit("setAnsweredQuestions", newAnsweredQuestions);
     socket.emit("buzzerReset");
   };
 
@@ -63,7 +76,13 @@ const GameCenter = props => {
         parseInt(currentPoints[player]) - parseInt(currentStakes[player])
     };
     setCurrentPoints(newPoints);
+    let newAnsweredQuestions = {
+      ...answeredQuestions,
+      [player]: answeredQuestions[player] + 1
+    };
+    setAnsweredQuestions(newAnsweredQuestions);
     socket.emit("setPoints", newPoints);
+    socket.emit("setAnsweredQuestions", newAnsweredQuestions);
     socket.emit("buzzerReset");
   };
 
@@ -117,7 +136,9 @@ const GameCenter = props => {
         <div className="metrics">
           <div className="changeStakes">
             <h3 className="changeStakesText">Beantwortete Fragen:</h3>
-            <h3 className="numberOfQuestions">0</h3>
+            <h3 className="numberOfQuestions">
+              {answeredQuestions.firstPlayer}
+            </h3>
             <h3 className="changeStakesText">Einsatz ändern</h3>
             <input
               type="text"
@@ -134,7 +155,9 @@ const GameCenter = props => {
           </div>
           <div className="changeStakes">
             <h3 className="changeStakesText">Beantwortete Fragen:</h3>
-            <h3 className="numberOfQuestions">0</h3>
+            <h3 className="numberOfQuestions">
+              {answeredQuestions.secondPlayer}
+            </h3>
             <h3 className="changeStakesText">Einsatz ändern</h3>
             <input
               type="text"
@@ -160,7 +183,6 @@ const GameCenter = props => {
             >
               FALSCH
             </div>
-            <div className="button notAnswered">KEINE ANTWORT</div>
           </div>
           <div className="button" onClick={() => handleBuzzerReset()}>
             Buzzer freischalten
@@ -178,7 +200,6 @@ const GameCenter = props => {
             >
               FALSCH
             </div>
-            <div className="button notAnswered">KEINE ANTWORT</div>
           </div>
         </div>
       ) : null}
