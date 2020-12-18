@@ -146,6 +146,7 @@ const GameCenter = props => {
               onChange={e => updateStakes(e.target.value, "firstPlayer")}
               value={currentStakes.firstPlayer}
               placeholder={0}
+              className="inputStakes"
             ></input>
           </div>
           <div
@@ -165,6 +166,7 @@ const GameCenter = props => {
               onChange={e => updateStakes(e.target.value, "secondPlayer")}
               value={currentStakes.secondPlayer}
               placeholder={0}
+              className="inputStakes"
             ></input>
           </div>
         </div>

@@ -72,6 +72,8 @@
   flex-direction: column;
   border-radius: 20px;
   padding: 1rem;
+  width: 20rem;
+  height: 20rem;
 }
 
 .changeStakesText {
@@ -93,8 +95,8 @@
   align-items: center;
   font-size: 3rem;
   color: white;
-  height: 20rem;
-  width: 20rem;
+  height: 25rem;
+  width: 25rem;
   cursor: pointer;
   background-color: rgb(249, 12, 41);
   border-radius: 50%;
@@ -180,4 +182,19 @@
 
 .notAnswered {
   background-color: rgb(82, 82, 82)
+}
+
+.inputStakes {
+  height: 3rem;
+  width: 30%;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 10px;
+  outline: none;
+  font-size: 1.8rem;
+}
+
+.inputStakes::placeholder {
+  text-align: center;
 }
