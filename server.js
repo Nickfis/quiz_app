@@ -2,13 +2,8 @@ const express = require("express");
 const app = express();
 const server = require("http").Server(app);
 
-app.use(express.static("/client/build"));
-const socketIo = require("socket.io");
-
 const port = process.env.PORT || 4001;
-const index = require("./routes/index");
-
-const io = socketIo(server, {
+const io = require("socket.io")(server, {
   cors: {
     origin: "*"
   }
@@ -34,5 +29,7 @@ io.on("connection", socket => {
     io.emit("setAnsweredQuestions", newAnsweredQuestions);
   });
 });
+
+app.use(express.static(__dirname + "/client/build"));
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

@@ -112,7 +112,7 @@ const GameCenter = props => {
         <div className="scoreBoard">
           <div className="playerContainer">
             <h2 className="playerName">Kleines Gehirn</h2>
-            <img className="playerPicture" src={siggi} />
+            <img className="playerPicture" src={siggi} alt="siggi" />
             <h4 className="stakes">
               Aktueller Einsatz: {currentStakes.firstPlayer}
             </h4>
@@ -127,7 +127,7 @@ const GameCenter = props => {
           </div>
           <div className="playerContainer">
             <h2 className="playerName">Ober Alman</h2>
-            <img className="playerPicture" src={maxi} />
+            <img className="playerPicture" src={maxi} alt="maxi" />
             <h4 className="stakes">
               Aktueller Einsatz: {currentStakes.secondPlayer}
             </h4>
