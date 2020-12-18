@@ -29,12 +29,11 @@ const LandingPage = props => {
             <img src={siggi} className="selectPicture" />
             <h2 className="playerName">KLEINES GEHIRN</h2>
           </li>
-          <li className="selectOption">
-            <img
-              src={siggi}
-              className="selectPicture"
-              onClick={e => handleChoice("/quiz/host")}
-            />
+          <li
+            className="selectOption"
+            onClick={e => handleChoice("/quiz/host")}
+          >
+            <img src={siggi} className="selectPicture" />
             <h2 className="playerName">Questionmaster</h2>
           </li>
         </ul>

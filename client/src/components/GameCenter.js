@@ -7,15 +7,15 @@ import io from "socket.io-client";
 const socket = io.connect("http://127.0.0.1:4001");
 
 const GameCenter = props => {
-  const player = props.match.params.user;
+  const user = props.match.params.user;
   // const [response, setResponse] = useState("");
   // connecting to the socket server
-  // useEffect(() => {
-  //   const socket = socketIOClient(ENDPOINT);
-  //   socket.on("FromAPI", data => {
-  //     setResponse(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.on("buzzerClicked", ({player}) => {
+      setBuzzerStatus(true);
+      setBuzzerClicker(player);
+    });
+  }, []);
 
   // state initialization
   let [currentStakes, setCurrentStakes] = useState({
@@ -28,8 +28,8 @@ const GameCenter = props => {
 
   const handleBuzzerClick = () => {
     setBuzzerStatus(true);
-    setBuzzerClicker(player.split("_").join(" "));
-    socket.emit("buzzerClicked", {player: player.split("_").join(" ")});
+    setBuzzerClicker(user.split("_").join(" "));
+    socket.emit("buzzerClicked", {player: user.split("_").join(" ")});
   };
 
   return (
@@ -106,19 +106,21 @@ const GameCenter = props => {
           </div>
         </div>
       </div>
-      <div className="adminPanel">
-        <div className="firstPlayerPanel">
-          <div className="button"></div>
-          <div className="button"></div>
+      {user === "host" ? (
+        <div className="adminPanel">
+          <div className="firstPlayerPanel">
+            <div className="button"></div>
+            <div className="button"></div>
+          </div>
+          <div className="button" onClick={e => setBuzzerStatus(false)}>
+            Buzzer freischalten
+          </div>
+          <div className="secondPlayerPanel">
+            <div className="button"></div>
+            <div className="button"></div>
+          </div>
         </div>
-        <div className="button" onClick={e => setBuzzerStatus(false)}>
-          Buzzer freischalten
-        </div>
-        <div className="secondPlayerPanel">
-          <div className="button"></div>
-          <div className="button"></div>
-        </div>
-      </div>
+      ) : null}
     </Fragment>
   );
 };
