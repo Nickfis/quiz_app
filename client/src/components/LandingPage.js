@@ -1,6 +1,7 @@
 import React, {useState, Fragment, useEffect} from "react";
 import "./LandingPage.css";
-import maxi from "./../resources/maxiBild.jpg";
+// import maxi from "./../resources/maxiBild.jpg";
+import maxi from "./../resources/maurice.jpg";
 // import siggi from "./../resources/siggiBild.jpg";
 import siggi from "./../resources/stevo.jpg";
 import nikki from "./../resources/nikkibild.jpeg";
