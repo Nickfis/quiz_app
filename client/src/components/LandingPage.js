@@ -5,9 +5,6 @@ import siggi from "./../resources/siggiBild.jpg";
 import nikki from "./../resources/nikkibild.jpeg";
 
 const LandingPage = props => {
-  let [whoClicked, setBuzzerClicker] = useState("Marcel");
-
-  console.log(props.history);
   const handleChoice = choice => {
     props.history.push(choice);
   };
