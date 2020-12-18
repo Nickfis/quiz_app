@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const server = require("http").Server(app);
+const path = require("path");
 
 const port = process.env.PORT || 4001;
 const io = require("socket.io")(server, {
@@ -30,6 +31,11 @@ io.on("connection", socket => {
   });
 });
 
-app.use(express.static(__dirname + "/client/build"));
+// Serve static assets
+// app.use(express.static(__dirname + "/client/build"));
+app.use(express.static("client/build"));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
