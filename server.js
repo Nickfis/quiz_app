@@ -21,6 +21,11 @@ io.on("connection", socket => {
     console.log(`Buzzer Clicked by ${player}`);
     io.emit("buzzerClicked", {player});
   });
+
+  socket.on("buzzerReset", () => {
+    console.log(`Buzzer reset`);
+    io.emit("buzzerReset");
+  });
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

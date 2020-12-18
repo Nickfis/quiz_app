@@ -15,6 +15,9 @@ const GameCenter = props => {
       setBuzzerStatus(true);
       setBuzzerClicker(player);
     });
+    socket.on("buzzerReset", () => {
+      setBuzzerStatus(false);
+    });
   }, []);
 
   // state initialization
@@ -42,6 +45,7 @@ const GameCenter = props => {
       [player]:
         parseInt(currentPoints[player]) + parseInt(currentStakes[player])
     });
+    socket.emit("buzzerReset");
   };
 
   const handleWrongAnswer = player => {
@@ -50,6 +54,11 @@ const GameCenter = props => {
       [player]:
         parseInt(currentPoints[player]) - parseInt(currentStakes[player])
     });
+    socket.emit("buzzerReset");
+  };
+
+  const handleBuzzerReset = () => {
+    socket.emit("buzzerReset");
   };
 
   return (
@@ -143,7 +152,7 @@ const GameCenter = props => {
             </div>
             <div className="button notAnswered">KEINE ANTWORT</div>
           </div>
-          <div className="button" onClick={e => setBuzzerStatus(false)}>
+          <div className="button" onClick={() => handleBuzzerReset()}>
             Buzzer freischalten
           </div>
           <div className="secondPlayerPanel">
