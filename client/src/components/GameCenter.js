@@ -4,7 +4,8 @@ import maxi from "./../resources/maxiBild.jpg";
 import siggi from "./../resources/siggiBild.jpg";
 import io from "socket.io-client";
 // connecting to the socket server
-const socket = io.connect("http://127.0.0.1:4001");
+// const socket = io.connect("http://127.0.0.1:4001");
+const socket = io.connect("https://fussi.herokuapp.com/");
 
 const GameCenter = props => {
   const user = props.match.params.user;
