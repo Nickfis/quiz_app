@@ -2,6 +2,7 @@ import React, {useState, Fragment, useEffect} from "react";
 import "./LandingPage.css";
 import maxi from "./../resources/maxiBild.jpg";
 import siggi from "./../resources/siggiBild.jpg";
+import nikki from "./../resources/nikkibild.jpeg";
 
 const LandingPage = props => {
   let [whoClicked, setBuzzerClicker] = useState("Marcel");
@@ -33,7 +34,7 @@ const LandingPage = props => {
             className="selectOption"
             onClick={e => handleChoice("/quiz/host")}
           >
-            <img src={siggi} className="selectPicture" />
+            <img src={nikki} className="selectPicture" />
             <h2 className="playerName">Questionmaster</h2>
           </li>
         </ul>

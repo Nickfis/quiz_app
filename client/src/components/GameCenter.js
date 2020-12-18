@@ -18,6 +18,12 @@ const GameCenter = props => {
     socket.on("buzzerReset", () => {
       setBuzzerStatus(false);
     });
+    socket.on("setStakes", newStakes => {
+      setCurrentStakes(newStakes);
+    });
+    socket.on("setPoints", newPoints => {
+      setCurrentPoints(newPoints);
+    });
   }, []);
 
   // state initialization
@@ -40,25 +46,37 @@ const GameCenter = props => {
   };
 
   const handleCorrectAnswer = player => {
-    setCurrentPoints({
+    let newPoints = {
       ...currentPoints,
       [player]:
         parseInt(currentPoints[player]) + parseInt(currentStakes[player])
-    });
+    };
+    setCurrentPoints();
+    socket.emit("setPoints", newPoints);
     socket.emit("buzzerReset");
   };
 
   const handleWrongAnswer = player => {
-    setCurrentPoints({
+    let newPoints = {
       ...currentPoints,
       [player]:
         parseInt(currentPoints[player]) - parseInt(currentStakes[player])
-    });
+    };
+    setCurrentPoints(newPoints);
+    socket.emit("setPoints", newPoints);
     socket.emit("buzzerReset");
   };
 
   const handleBuzzerReset = () => {
     socket.emit("buzzerReset");
+  };
+
+  const updateStakes = (value, player) => {
+    setCurrentStakes({
+      ...currentStakes,
+      [player]: value
+    });
+    socket.emit("setStakes", {...currentStakes, [player]: value});
   };
 
   return (
@@ -83,9 +101,9 @@ const GameCenter = props => {
           <div className="scoreContainer">
             <h2 className="playerName">Punktestand</h2>
             <div className="pointsContainer">
-              <h2>{currentPoints.firstPlayer}</h2>
+              <h2>{currentPoints ? currentPoints.firstPlayer : null}</h2>
               <div className="pointsDivider"></div>
-              <h2>{currentPoints.secondPlayer}</h2>
+              <h2>{currentPoints ? currentPoints.secondPlayer : null}</h2>
             </div>
           </div>
           <div className="playerContainer">
@@ -103,12 +121,7 @@ const GameCenter = props => {
             <h3 className="changeStakesText">Einsatz ändern</h3>
             <input
               type="text"
-              onChange={e =>
-                setCurrentStakes({
-                  ...currentStakes,
-                  firstPlayer: e.target.value
-                })
-              }
+              onChange={e => updateStakes(e.target.value, "firstPlayer")}
               placeholder={0}
             ></input>
           </div>
@@ -124,12 +137,7 @@ const GameCenter = props => {
             <h3 className="changeStakesText">Einsatz ändern</h3>
             <input
               type="text"
-              onChange={e =>
-                setCurrentStakes({
-                  ...currentStakes,
-                  secondPlayer: e.target.value
-                })
-              }
+              onChange={e => updateStakes(e.target.value, "secondPlayer")}
               placeholder={0}
             ></input>
           </div>
