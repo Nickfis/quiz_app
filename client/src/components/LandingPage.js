@@ -17,14 +17,14 @@ const LandingPage = props => {
         <ul className="selectPlayer">
           <li
             className="selectOption"
-            onClick={e => handleChoice("/quiz/ober_alman")}
+            onClick={e => handleChoice("/quiz/mr_dividende")}
           >
             <img src={maxi} className="selectPicture" alt="maxi" />
             <h2 className="playerName">MR. DIVIDENDE</h2>
           </li>
           <li
             className="selectOption"
-            onClick={e => handleChoice("/quiz/kleines_gehirn")}
+            onClick={e => handleChoice("/quiz/die_deutsche_eiche")}
           >
             <img src={siggi} className="selectPicture" alt="siggi" />
             <h2 className="playerName">DIE DEUTSCHE EICHE</h2>
