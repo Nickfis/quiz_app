@@ -112,7 +112,7 @@ const GameCenter = props => {
       <div className="gameCenter">
         <div className="scoreBoard">
           <div className="playerContainer">
-            <h2 className="playerName">Kleines Gehirn</h2>
+            <h2 className="playerName">Die Deutsche Eiche</h2>
             <img className="playerPicture" src={siggi} alt="siggi" />
             <h4 className="stakes">
               Aktueller Einsatz: {currentStakes.firstPlayer}
@@ -127,7 +127,7 @@ const GameCenter = props => {
             </div>
           </div>
           <div className="playerContainer">
-            <h2 className="playerName">Ober Alman</h2>
+            <h2 className="playerName">Mr. Dividende</h2>
             <img className="playerPicture" src={maxi} alt="maxi" />
             <h4 className="stakes">
               Aktueller Einsatz: {currentStakes.secondPlayer}
@@ -151,7 +151,7 @@ const GameCenter = props => {
           </div>
           <div
             className="buzzer"
-            onClick={e => handleBuzzerClick("Kleines Gehirn")}
+            onClick={e => handleBuzzerClick("Die Deutsche Eiche")}
           >
             BUZZER
           </div>
