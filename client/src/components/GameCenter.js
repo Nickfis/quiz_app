@@ -4,6 +4,8 @@ import maxi from "./../resources/maurice.jpg";
 import siggi from "./../resources/stevo.jpg";
 import io from "socket.io-client";
 import Player from "./Player";
+import AdminPanel from "./AdminPanel";
+
 const socket = io.connect("https://fussi.herokuapp.com/");
 
 const GameCenter = props => {
@@ -161,44 +163,16 @@ const GameCenter = props => {
               value={currentStakes.secondPlayer}
               placeholder={0}
               className="inputStakes"
-            ></input>
+            />
           </div>
         </div>
       </div>
       {user === "host" ? (
-        <div className="adminPanel">
-          <div className="firstPlayerPanel">
-            <div
-              className="button correct"
-              onClick={() => handleCorrectAnswer("firstPlayer")}
-            >
-              RICHTIG
-            </div>
-            <div
-              className="button false"
-              onClick={() => handleWrongAnswer("firstPlayer")}
-            >
-              FALSCH
-            </div>
-          </div>
-          <div className="button" onClick={() => handleBuzzerReset()}>
-            Buzzer freischalten
-          </div>
-          <div className="secondPlayerPanel">
-            <div
-              className="button correct"
-              onClick={() => handleCorrectAnswer("secondPlayer")}
-            >
-              RICHTIG
-            </div>
-            <div
-              className="button false"
-              onClick={() => handleWrongAnswer("secondPlayer")}
-            >
-              FALSCH
-            </div>
-          </div>
-        </div>
+        <AdminPanel
+          handleCorrectAnswer={handleCorrectAnswer}
+          handleWrongAnswer={handleWrongAnswer}
+          handleBuzzerReset={handleBuzzerReset}
+        />
       ) : null}
     </Fragment>
   );
