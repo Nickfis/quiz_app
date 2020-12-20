@@ -1,9 +1,7 @@
 import React, {useState, Fragment, useEffect} from "react";
 import "./LandingPage.css";
-// import maxi from "./../resources/maxiBild.jpg";
-import maxi from "./../resources/maurice.jpg";
-// import siggi from "./../resources/siggiBild.jpg";
-import siggi from "./../resources/stevo.jpg";
+import maxi from "./../resources/maxiBild.jpg";
+import siggi from "./../resources/siggiBild.jpg";
 import nikki from "./../resources/nikkibild.jpeg";
 
 const LandingPage = props => {
@@ -24,7 +22,7 @@ const LandingPage = props => {
           </li>
           <li
             className="selectOption"
-            onClick={e => handleChoice("/quiz/die_deutsche_eiche")}
+            onClick={e => handleChoice("/quiz/die_deutsche_eich")}
           >
             <img src={siggi} className="selectPicture" alt="siggi" />
             <h2 className="playerName">DIE DEUTSCHE EICHE</h2>

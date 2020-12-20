@@ -3,14 +3,12 @@ import "./GameCenter.css";
 import maxi from "./../resources/maurice.jpg";
 import siggi from "./../resources/stevo.jpg";
 import io from "socket.io-client";
-// connecting to the socket server
-// const socket = io.connect("http://127.0.0.1:4001");
+import Player from "./Player";
 const socket = io.connect("https://fussi.herokuapp.com/");
 
 const GameCenter = props => {
   const user = props.match.params.user;
-  // const [response, setResponse] = useState("");
-  // connecting to the socket server
+
   useEffect(() => {
     socket.on("buzzerClicked", ({player}) => {
       setBuzzerStatus(true);
@@ -111,13 +109,11 @@ const GameCenter = props => {
       ) : null}
       <div className="gameCenter">
         <div className="scoreBoard">
-          <div className="playerContainer">
-            <h2 className="playerName">Die Deutsche Eiche</h2>
-            <img className="playerPicture" src={siggi} alt="siggi" />
-            <h4 className="stakes">
-              Aktueller Einsatz: {currentStakes.firstPlayer}
-            </h4>
-          </div>
+          <Player
+            name={"Die deutsche Eiche"}
+            picture={siggi}
+            stakes={currentStakes.firstPlayer}
+          />
           <div className="scoreContainer">
             <h2 className="playerName">Punktestand</h2>
             <div className="pointsContainer">
@@ -126,13 +122,11 @@ const GameCenter = props => {
               <h2>{currentPoints ? currentPoints.secondPlayer : null}</h2>
             </div>
           </div>
-          <div className="playerContainer">
-            <h2 className="playerName">Mr. Dividende</h2>
-            <img className="playerPicture" src={maxi} alt="maxi" />
-            <h4 className="stakes">
-              Aktueller Einsatz: {currentStakes.secondPlayer}
-            </h4>
-          </div>
+          <Player
+            name={"Maxi"}
+            picture={maxi}
+            stakes={currentStakes.secondPlayer}
+          />
         </div>
         <div className="metrics">
           <div className="changeStakes">
