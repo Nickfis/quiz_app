@@ -5,6 +5,7 @@ import siggi from "./../resources/stevo.jpg";
 import io from "socket.io-client";
 import Player from "./Player";
 import AdminPanel from "./AdminPanel";
+import UserPanel from "./UserPanel";
 
 const socket = io.connect("https://fussi.herokuapp.com/");
 
@@ -131,40 +132,24 @@ const GameCenter = props => {
           />
         </div>
         <div className="metrics">
-          <div className="changeStakes">
-            <h3 className="changeStakesText">Beantwortete Fragen:</h3>
-            <h3 className="numberOfQuestions">
-              {answeredQuestions.firstPlayer}
-            </h3>
-            <h3 className="changeStakesText">Einsatz ändern</h3>
-            <input
-              type="text"
-              onChange={e => updateStakes(e.target.value, "firstPlayer")}
-              value={currentStakes.firstPlayer}
-              placeholder={0}
-              className="inputStakes"
-            ></input>
-          </div>
+          <UserPanel
+            answeredQuestions={answeredQuestions.firstPlayer}
+            updateStakes={updateStakes}
+            player={"firstPlayer"}
+            stakes={currentStakes.firstPlayer}
+          />
           <div
             className="buzzer"
             onClick={e => handleBuzzerClick("Die Deutsche Eiche")}
           >
             BUZZER
           </div>
-          <div className="changeStakes">
-            <h3 className="changeStakesText">Beantwortete Fragen:</h3>
-            <h3 className="numberOfQuestions">
-              {answeredQuestions.secondPlayer}
-            </h3>
-            <h3 className="changeStakesText">Einsatz ändern</h3>
-            <input
-              type="text"
-              onChange={e => updateStakes(e.target.value, "secondPlayer")}
-              value={currentStakes.secondPlayer}
-              placeholder={0}
-              className="inputStakes"
-            />
-          </div>
+          <UserPanel
+            answeredQuestions={answeredQuestions.secondPlayer}
+            updateStakes={updateStakes}
+            player={"secondPlayer"}
+            stakes={currentStakes.secondPlayer}
+          />
         </div>
       </div>
       {user === "host" ? (
